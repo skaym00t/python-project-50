@@ -5,3 +5,4 @@ gendiff/__pycache__/
 gendiff/scripts/__pycache__/
 .ruff_cache/
 ruff.toml
+.pytest_cache/
