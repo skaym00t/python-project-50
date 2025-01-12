@@ -1,7 +1,7 @@
 install:
 	uv sync
 
-run -h:
+run:
 	uv run gendiff -h
 
 test:
@@ -18,4 +18,7 @@ check: test lint
 build:
 	uv build
 
-.PHONY: install test lint selfcheck check build
+reinstall: install build
+	uv tool install --reinstall  dist/hexlet_code-0.1.0-py3-none-any.whl
+
+.PHONY: install test lint selfcheck check build reinstall
