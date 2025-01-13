@@ -7,3 +7,4 @@ gendiff/scripts/__pycache__/
 ruff.toml
 .pytest_cache/
 demo.cast
+tests/__pycache__/
