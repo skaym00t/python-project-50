@@ -8,3 +8,4 @@ ruff.toml
 .pytest_cache/
 demo.cast
 tests/__pycache__/
+.coverage
