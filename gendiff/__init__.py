@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
-from gendiff.parser import file1, file2, generate_diff, parser, path1, path2
+from .gen_diff import generate_diff
+from .parser import parse_args
 
-__all__ = ("parser", "path1", "path2", "file1", "file2", "generate_diff")
+__all__ = ["generate_diff", "parse_args"]
