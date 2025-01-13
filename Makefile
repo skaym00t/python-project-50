@@ -13,7 +13,7 @@ test-coverage:
 lint:
     uv run ruff check --fix .
 
-check: test lint
+check: lint test
 
 build:
     uv build
