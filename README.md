@@ -1,3 +1,9 @@
+# Python Project 50
+
+[![CI Status](https://github.com/skaym00t/python-project-50/actions/workflows/pyci.yml/badge.svg)](https://github.com/skaym00t/python-project-50/actions)
+[![Coverage Status](https://api.codeclimate.com/v1/badges/f709be1e73081b42cd482918c32a763db23ab0f25624daffca04aafc83be6606/test_coverage)](https://codeclimate.com/github/skaym00t/python-project-50/test_coverage)
+
+
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/skaym00t/python-project-50/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/skaym00t/python-project-50/actions)
 
@@ -38,7 +44,3 @@ bash:
 To run tests with coverage, use:
 bash:
     make test-coverage
-
-GitHub Actions and CodeClimate
-[![GitHub Actions Status](https://github.com/skaym00t/gendiff/actions/workflows/pyci.yml/badge.svg)](https://github.com/skaym00t/python-project-50/actions)
-[![Code Climate coverage](https://api.codeclimate.com/v1/badges/f709be1e73081b42cd482918c32a763db23ab0f25624daffca04aafc83be6606/test_coverage)](https://codeclimate.com/github/skaym00t/python-project-50)

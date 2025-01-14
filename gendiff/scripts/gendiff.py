@@ -2,6 +2,7 @@ import json
 import os
 from gendiff import generate_diff, parse_args
 
+
 def main():
     args = parse_args()
     path1 = os.path.abspath(args.first_file)
@@ -12,6 +13,7 @@ def main():
         file2 = json.load(f2)
 
     print(generate_diff(file1, file2))
+
 
 if __name__ == "__main__":
     main()
