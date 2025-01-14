@@ -1,5 +1,4 @@
 import json
-import pytest
 from gendiff.gen_diff import generate_diff
 
 def load_json(file_path):
@@ -39,5 +38,5 @@ def test_generate_diff_common_keys_same_values():
 def test_generate_diff_mixed_keys():
     file1 = {'a': 'value1', 'b': 'value2'}
     file2 = {'b': 'new_value2', 'c': 'value3'}
-    expected_result = "- a: value1\n  b: value2\n+ b: new_value2\n+ c: value3\n"
+    expected_result = "- a: value1\n- b: value2\n+ b: new_value2\n+ c: value3\n"
     assert generate_diff(file1, file2) == expected_result
