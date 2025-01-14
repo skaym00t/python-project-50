@@ -1,7 +1,8 @@
 # Python Project 50
 
 [![CI Status](https://github.com/skaym00t/python-project-50/actions/workflows/pyci.yml/badge.svg)](https://github.com/skaym00t/python-project-50/actions)
-[![Coverage Status](https://api.codeclimate.com/v1/badges/f709be67863098882a771aff05aae9/test_coverage)](https://codeclimate.com/github/skaym00t/python-project-50/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/d50f2fac7a7c884e161a/maintainability)](https://codeclimate.com/github/skaym00t/python-project-50/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/d50f2fac7a7c884e161a/test_coverage)](https://codeclimate.com/github/skaym00t/python-project-50/test_coverage)
 
 
 ### Hexlet tests and linter status:
