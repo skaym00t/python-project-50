@@ -28,15 +28,19 @@ Once UV is installed, navigate to your project directory and sync the dependenci
 bash:
     uv sync
 
-3. **Usage**:
-Run the script with two JSON files as arguments:
-bash:
-    uv run gendiff file1.json(relative path) file2.json(relative path)
-
-4. **Testing**:
+3. **Testing**:
 To run tests, use:
 bash:
     make test
+
+4. **Example Usage**
+Comparing JSON Files:
+
+uv run gendiff examples/file1.json examples/file2.json
+
+Comparing YAML Files:
+
+uv run gendiff examples/file1.yml examples/file2.yml
 
 To run the linter, use:
 bash:
