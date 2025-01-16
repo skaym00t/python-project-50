@@ -1,0 +1,4 @@
+#python-project-50/tests/test_data/file2.yml
+host: hexlet.io
+timeout: 20
+verbose: true
