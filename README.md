@@ -8,44 +8,83 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/skaym00t/python-project-50/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/skaym00t/python-project-50/actions)
 
-[![Gendiff presentation](https://asciinema.org/a/vq0mvfZidvpnYilAxP0epQzXs.svg)](https://asciinema.org/a/vq0mvfZidvpnYilAxP0epQzXs)
+[![Gendiff presentation](https://asciinema.org/a/JBQpATNVxKYJNJkcFxoQKW7zu.svg)](https://asciinema.org/a/JBQpATNVxKYJNJkcFxoQKW7zu)
+# Проект Gendiff
 
-# Gendiff Project
+Проект предоставляет функциональность для генерации различий между двумя конфигурационными файлами форматов JSON и YAML.
 
-This project provides functionality to generate differences between two JSON files.
+## Установка
 
-## Installation
+Для настройки проекта с использованием UV выполните следующие шаги:
 
-To set up the project using UV, follow these steps:
-
-1. **Install UV**:
-   If you haven't installed UV yet, you can do so by running the following command:
+1. **Установка UV**:
+   Если вы ещё не установили UV, сделайте это, выполнив следующую команду:
    ```bash
    curl -LsSf https://astral.sh/uv/install.sh | sh
 
-2. **Sync dependencies**:
-Once UV is installed, navigate to your project directory and sync the dependencies:
-bash:
-    uv sync
+2. Синхронизация зависимостей :
+После установки UV перейдите в директорию проекта и синхронизируйте зависимости:
 
-3. **Testing**:
-To run tests, use:
-bash:
-    make test
+make install
 
-4. **Example Usage**
-Comparing JSON Files:
+## ASCII-схема работы пакета
 
-uv run gendiff examples/file1.json examples/file2.json
++-------------------------+
+|       Gendiff           |
+|-------------------------|
+| Input: file1, file2     |
+| Optional: format        |
+|-------------------------|
+| Step 1: Parse files     |
+| Step 2: Build diff      |
+| Step 3: Format diff     |
+|-------------------------|
+| Output: formatted diff   |
++-------------------------+
+         |   |
+         v   v
++-------------------------+       +-------------------------+
+|  JSON/YAML Parser       |       |  Formatter (Stylish/Plain)|
+|-------------------------|       |-------------------------|
+| Convert JSON/YAML to    |       | Convert internal diff    |
+| Python dict             |       | to desired output format |
++-------------------------+       +-------------------------+
+         |   |
+         v   v
++-------------------------+
+|  Diff Builder           |
+|-------------------------|
+| Compare two dicts and   |
+| create internal diff    |
++-------------------------+
+         |
+         v
++-------------------------+
+|  Generate Diff          |
+|-------------------------|
+| Choose formatter based  |
+| on user input or default|
++-------------------------+
+         |
+         v
++-------------------------+
+|  Output                 |
+|-------------------------|
+| Print formatted diff    |
++-------------------------+
 
-Comparing YAML Files:
+#### Тестирование
 
-uv run gendiff examples/file1.yml examples/file2.yml
+Для запуска тестов используйте следующую команду:
 
-To run the linter, use:
-bash:
-    make lint
+make test
 
-To run tests with coverage, use:
-bash:
-    make test-coverage
+Для запуска тестов с покрытием используйте:
+
+make test-coverage
+
+#### Линтер
+
+Для проверки кода на соответствие стандартам PEP8 используйте следующую команду:
+
+make lint
