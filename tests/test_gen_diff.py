@@ -50,10 +50,6 @@ def test_generate_diff_flat_files():
     }
 }"""
     result = generate_diff(file1_path, file2_path)
-    print("Generated diff:")
-    print(result)
-    print("Expected diff:")
-    print(expected_result.lower())
     assert result == expected_result.lower()
 
 
@@ -105,8 +101,40 @@ def test_generate_diff_flat_yaml_files():
     }
 }"""
     result = generate_diff(file1_path, file2_path)
-    print("Generated diff:")
-    print(result)
-    print("Expected diff:")
-    print(expected_result.lower())
+    assert result == expected_result.lower()
+
+
+def test_generate_diff_plain_format():
+    file1_path = "tests/test_data/file1.json"
+    file2_path = "tests/test_data/file2.json"
+    expected_result = """Property 'common.follow' was added with value: false
+Property 'common.setting2' was removed
+Property 'common.setting3' was updated. From true to null
+Property 'common.setting4' was added with value: 'blah blah'
+Property 'common.setting5' was added with value: [complex value]
+Property 'common.setting6.doge.wow' was updated. From '' to 'so much'
+Property 'common.setting6.ops' was added with value: 'vops'
+Property 'group1.baz' was updated. From 'bas' to 'bars'
+Property 'group1.nest' was updated. From [complex value] to 'str'
+Property 'group2' was removed
+Property 'group3' was added with value: [complex value]"""
+    result = generate_diff(file1_path, file2_path, format_name='plain')
+    assert result == expected_result.lower()
+
+
+def test_generate_diff_plain_yaml_format():
+    file1_path = "tests/test_data/file1.yml"
+    file2_path = "tests/test_data/file2.yml"
+    expected_result = """Property 'common.follow' was added with value: false
+Property 'common.setting2' was removed
+Property 'common.setting3' was updated. From true to null
+Property 'common.setting4' was added with value: 'blah blah'
+Property 'common.setting5' was added with value: [complex value]
+Property 'common.setting6.doge.wow' was updated. From '' to 'so much'
+Property 'common.setting6.ops' was added with value: 'vops'
+Property 'group1.baz' was updated. From 'bas' to 'bars'
+Property 'group1.nest' was updated. From [complex value] to 'str'
+Property 'group2' was removed
+Property 'group3' was added with value: [complex value]"""
+    result = generate_diff(file1_path, file2_path, format_name='plain')
     assert result == expected_result.lower()
