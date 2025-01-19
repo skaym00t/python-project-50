@@ -1,7 +1,8 @@
 # python-project-50/gendiff/gen_diff.py
 import json
-import yaml
 import os
+
+import yaml
 
 
 def parse_file(file_path):
@@ -15,22 +16,95 @@ def parse_file(file_path):
             raise ValueError(f"Unsupported file format: {file_extension}")
 
 
-def generate_diff(file1_path, file2_path):
+def build_diff(data1, data2):
+    keys = sorted(set(data1.keys()) | set(data2.keys()))
+    diff = []
+    for key in keys:
+        if key not in data1:
+            diff.append({"key": key, "type": "added", "value": data2[key]})
+        elif key not in data2:
+            diff.append({"key": key, "type": "removed", "value": data1[key]})
+        else:
+            if isinstance(data1[key], dict) and isinstance(data2[key], dict):
+                nested_diff = build_diff(data1[key], data2[key])
+                if nested_diff:
+                    diff.append(
+                        {"key": key, "type": "nested", "children": nested_diff}
+                        )
+            elif data1[key] != data2[key]:
+                diff.append(
+                    {
+                        "key": key,
+                        "type": "changed",
+                        "old_value": data1[key],
+                        "new_value": data2[key],
+                    }
+                )
+            else:
+                diff.append(
+                    {"key": key, "type": "unchanged", "value": data1[key]}
+                    )
+    return diff
+
+
+def format_stylish(diff, indent=0):
+    lines = []
+    spaces_count = 4
+    for node in diff:
+        if node["type"] == "added":
+            lines.append(
+                f"{' ' * indent}+ {node['key']}: "
+                f"{format_value(node['value'], indent + spaces_count)}"
+            )
+        elif node["type"] == "removed":
+            lines.append(
+                f"{' ' * indent}- {node['key']}: "
+                f"{format_value(node['value'], indent + spaces_count)}"
+            )
+        elif node["type"] == "changed":
+            lines.append(
+                f"{' ' * indent}- {node['key']}: "
+                f"{format_value(node['old_value'], indent + spaces_count)}"
+            )
+            lines.append(
+                f"{' ' * indent}+ {node['key']}: "
+                f"{format_value(node['new_value'], indent + spaces_count)}"
+            )
+        elif node["type"] == "unchanged":
+            lines.append(
+                f"{' ' * indent}  {node['key']}: "
+                f"{format_value(node['value'], indent + spaces_count)}"
+            )
+        elif node["type"] == "nested":
+            lines.append(f"{' ' * indent}  {node['key']}: {{")
+            lines.append(
+                format_stylish(node["children"], indent + spaces_count)
+                )
+            lines.append(f"{' ' * indent}  }}")
+    return "\n".join(lines)
+
+
+def format_value(value, indent):
+    if isinstance(value, dict):
+        lines = []
+        for k, v in value.items():
+            lines.append(
+                f"{' ' * indent}{k}: " f"{format_value(v, indent + 2)}"
+                )
+        return "{\n" + "\n".join(lines) + "\n" + " " * (indent - 2) + "}"
+    elif value is None:
+        return "null"
+    elif isinstance(value, bool):
+        return str(value).lower()
+    else:
+        return str(value)
+
+
+def generate_diff(file1_path, file2_path, format_name="stylish"):
     file1 = parse_file(file1_path)
     file2 = parse_file(file2_path)
-
-    keys = sorted(set(file1.keys()) | set(file2.keys()))
-    result = "{\n"
-    for key in keys:
-        if key in file1 and key not in file2:
-            result += f"  - {key}: {file1[key]}\n"
-        elif key in file2 and key not in file1:
-            result += f"  + {key}: {file2[key]}\n"
-        elif key in file1 and key in file2:
-            if file1[key] != file2[key]:
-                result += f"  - {key}: {file1[key]}\n"
-                result += f"  + {key}: {file2[key]}\n"
-            else:
-                result += f"    {key}: {file1[key]}\n"
-    result += "}"
-    return result.lower()
+    diff = build_diff(file1, file2)
+    if format_name == "stylish":
+        result = "{\n" + format_stylish(diff, indent=2) + "\n}"
+        return result.lower()
+    raise ValueError(f"Unsupported format: {format_name}")
