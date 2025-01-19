@@ -9,3 +9,4 @@ ruff.toml
 demo.cast
 tests/__pycache__/
 .coverage
+gendiff/formatters/__pycache__/
