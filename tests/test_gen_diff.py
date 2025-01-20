@@ -1,4 +1,6 @@
 # python-project-50/tests/test_gen_diff.py
+import json
+
 from gendiff.gen_diff import generate_diff
 
 
@@ -118,7 +120,7 @@ Property 'group1.baz' was updated. From 'bas' to 'bars'
 Property 'group1.nest' was updated. From [complex value] to 'str'
 Property 'group2' was removed
 Property 'group3' was added with value: [complex value]"""
-    result = generate_diff(file1_path, file2_path, format_name='plain')
+    result = generate_diff(file1_path, file2_path, format_name="plain")
     assert result == expected_result.lower()
 
 
@@ -136,5 +138,40 @@ Property 'group1.baz' was updated. From 'bas' to 'bars'
 Property 'group1.nest' was updated. From [complex value] to 'str'
 Property 'group2' was removed
 Property 'group3' was added with value: [complex value]"""
-    result = generate_diff(file1_path, file2_path, format_name='plain')
+    result = generate_diff(file1_path, file2_path, format_name="plain")
     assert result == expected_result.lower()
+
+
+def test_generate_diff_json_format():
+    file1_path = "tests/test_data/file1.json"
+    file2_path = "tests/test_data/file2.json"
+    expected_result = """{
+  "common": {
+    "follow": {"type": "added", "value": false},
+    "setting1": {"type": "unchanged", "value": "Value 1"},
+    "setting2": {"type": "removed", "value": 200},
+    "setting3": {"type": "changed", "old_value": true, "new_value": null},
+    "setting4": {"type": "added", "value": "blah blah"},
+    "setting5": {"type": "added", "value": {"key5": "value5"}},
+    "setting6": {
+      "doge": {
+        "wow": {"type": "changed", "old_value": "", "new_value": "so much"}
+      },
+      "key": {"type": "unchanged", "value": "value"},
+      "ops": {"type": "added", "value": "vops"}
+    }
+  },
+  "group1": {
+    "baz": {"type": "changed", "old_value": "bas", "new_value": "bars"},
+    "foo": {"type": "unchanged", "value": "bar"},
+    "nest": {
+      "type": "changed", "old_value": {"key": "value"}, "new_value": "str"
+      }
+  },
+  "group2": {"type": "removed", "value": {"abc": 12345, "deep": {"id": 45}}},
+  "group3": {
+    "type": "added", "value": {"deep": {"id": {"number": 45}}, "fee": 100500}
+    }
+}"""
+    result = generate_diff(file1_path, file2_path, format_name="json")
+    assert json.loads(result) == json.loads(expected_result)

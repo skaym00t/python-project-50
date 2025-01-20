@@ -8,11 +8,16 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/skaym00t/python-project-50/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/skaym00t/python-project-50/actions)
 
-[![Gendiff presentation](https://asciinema.org/a/JBQpATNVxKYJNJkcFxoQKW7zu.svg)](https://asciinema.org/a/JBQpATNVxKYJNJkcFxoQKW7zu)
+[![Gendiff presentation](https://asciinema.org/a/anyUdTp6X03NmjFI1e8MVxR8C.svg)](https://asciinema.org/a/anyUdTp6X03NmjFI1e8MVxR8C)
 # Проект Gendiff
 
-Проект предоставляет функциональность для генерации различий между двумя конфигурационными файлами форматов JSON и YAML.
-
+Проект предоставляет функциональность для генерации и вывода различий между двумя конфигурационными файлами форматов JSON и YAML в двух форматах 'stylish' и 'plain'.
+Также возможен вывод данных в структурированном формате JSON, к примеру для дальнейшей передачи и работы с данными.
+На записи представлен функционал программы на yaml-файлах.
+Примеры команд:
+gendiff -f stylish gendiff/file1.yaml gendiff/file2.yaml
+gendiff -f plain gendiff/file1.yaml gendiff/file2.yaml
+gendiff -f json gendiff/file1.yaml gendiff/file2.yaml
 ## Установка
 
 Для настройки проекта с использованием UV выполните следующие шаги:
@@ -44,7 +49,7 @@ make install
          |   |
          v   v
 +-------------------------+       +-------------------------+
-|  JSON/YAML Parser       |       |  Formatter (Stylish/Plain)|
+|  JSON/YAML Parser       |       |  Formatter (Stylish/Plain/JSON)|
 |-------------------------|       |-------------------------|
 | Convert JSON/YAML to    |       | Convert internal diff    |
 | Python dict             |       | to desired output format |
