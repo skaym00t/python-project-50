@@ -10,17 +10,17 @@ def test_generate_diff_flat_files():
     expected_result = """{
     common: {
       + follow: false
-        setting1: value 1
+        setting1: Value 1
       - setting2: 200
       - setting3: true
       + setting3: null
       + setting4: blah blah
       + setting5: {
-          key5: value5
+            key5: value5
         }
         setting6: {
             doge: {
-              - wow: 
+              - wow:
               + wow: so much
             }
             key: value
@@ -32,23 +32,23 @@ def test_generate_diff_flat_files():
       + baz: bars
         foo: bar
       - nest: {
-          key: value
+            key: value
         }
       + nest: str
     }
   - group2: {
-      abc: 12345
-      deep: {
-        id: 45
-      }
+        abc: 12345
+        deep: {
+            id: 45
+        }
     }
   + group3: {
-      deep: {
-        id: {
-          number: 45
+        deep: {
+            id: {
+                number: 45
+            }
         }
-      }
-      fee: 100500
+        fee: 100500
     }
 }"""
     result = generate_diff(file1_path, file2_path)
@@ -61,17 +61,17 @@ def test_generate_diff_flat_yaml_files():
     expected_result = """{
     common: {
       + follow: false
-        setting1: value 1
+        setting1: Value 1
       - setting2: 200
       - setting3: true
       + setting3: null
       + setting4: blah blah
       + setting5: {
-          key5: value5
+            key5: value5
         }
         setting6: {
             doge: {
-              - wow: 
+              - wow:
               + wow: so much
             }
             key: value
@@ -83,23 +83,23 @@ def test_generate_diff_flat_yaml_files():
       + baz: bars
         foo: bar
       - nest: {
-          key: value
+            key: value
         }
       + nest: str
     }
   - group2: {
-      abc: 12345
-      deep: {
-        id: 45
-      }
+        abc: 12345
+        deep: {
+            id: 45
+        }
     }
   + group3: {
-      deep: {
-        id: {
-          number: 45
+        deep: {
+            id: {
+                number: 45
+            }
         }
-      }
-      fee: 100500
+        fee: 100500
     }
 }"""
     result = generate_diff(file1_path, file2_path)
