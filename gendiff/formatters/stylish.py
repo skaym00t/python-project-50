@@ -1,4 +1,5 @@
 # python-project-50/gendiff/formatters/stylish.py
+
 def format_stylish(diff, indent=0):
     lines = []
     spaces_count = 4
@@ -31,19 +32,18 @@ def format_stylish(diff, indent=0):
             lines.append(f"{' ' * indent}  {node['key']}: {{")
             lines.append(
                 format_stylish(node["children"], indent + spaces_count)
-                )
+            )
             lines.append(f"{' ' * indent}  }}")
     return "\n".join(lines)
-
 
 def format_value(value, indent):
     if isinstance(value, dict):
         lines = []
         for k, v in value.items():
             lines.append(
-                f"{' ' * indent}{k}: " f"{format_value(v, indent + 2)}"
-                )
-        return "{\n" + "\n".join(lines) + "\n" + " " * (indent - 2) + "}"
+                f"{' ' * (indent + 2)}{k}: " f"{format_value(v, indent + 2)}"
+            )
+        return "{\n" + "\n".join(lines) + "\n" + " " * indent + "}"
     elif value is None:
         return "null"
     elif isinstance(value, bool):

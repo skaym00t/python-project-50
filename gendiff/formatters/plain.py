@@ -1,4 +1,5 @@
 # python-project-50/gendiff/formatters/plain.py
+
 def format_value(value):
     if isinstance(value, dict):
         return "[complex value]"
@@ -8,7 +9,6 @@ def format_value(value):
         return str(value).lower()
     else:
         return f"'{value}'"
-
 
 def format_plain(diff, parent_key=""):
     lines = []
